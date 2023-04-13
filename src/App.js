@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import "./css/main.css";
+import DisplayTodos from "./components/DisplayTodos";
+import Todos from "./components/Todos";
+import lightBulb from './bulb.svg'
+import { motion } from "framer-motion";
+import React, { useState } from "react";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleMode = () => {
+    if (darkMode) {
+      setDarkMode(false)
+      document.body.style.backgroundColor = "white";
+    }
+    if (!darkMode) {
+      setDarkMode(true)
+      document.body.style.backgroundColor = "#36454F";
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='bulb-div'>
+        <img onClick={toggleMode} src={lightBulb} alt='Rajat' className='bulb' />
+      </div>
+      <motion.h1
+        initial={{ y: -200 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", duration: 0.5 }}
+        whileHover={{ scale: 1.1 }}
+      >
+        Add your Todo list
+      </motion.h1>
+      <motion.div
+        initial={{ y: 1000 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", duration: 1 }}
+      >
+        <Todos />
+        <DisplayTodos />
+      </motion.div>
     </div>
   );
 }
